@@ -5,8 +5,9 @@ namespace Tests\Feature;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class UserCanBeRegisteredTest extends TestCase
 {
+    
     /**
      * A basic test example.
      *
@@ -14,7 +15,13 @@ class ExampleTest extends TestCase
      */
     public function test_the_application_returns_a_successful_response()
     {
-        $response = $this->get('/');
+        $response = $this->post('/api/users', [
+            'name' => 'Cristian Guzmán',
+            'email' => 'cristian@test.com',
+            'password' => '58506484'
+        ]);
+
+        dd($response);
 
         $response->assertStatus(200);
     }

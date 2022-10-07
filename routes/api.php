@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,19 @@ Route::get('/users', function () {
         'Armando',
         'Carlos'
     ];
+});
+
+Route::post('/users', App\Http\Controllers\Users\Register::class)->name('users.register');
+
+Route::post('login', function (Request $request) {
+
+    if (!$request->email) {
+        abort(403);
+    }
+
+    if (!User::whereEmail($request->email)->exists()) {
+        abort(403);
+    }
+    
+    return "abcd1234";
 });
