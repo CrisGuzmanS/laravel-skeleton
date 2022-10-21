@@ -15,29 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
-Route::get('/users', function () {
-    return [
-        'Rogelio',
-        'Armando',
-        'Carlos'
-    ];
-});
 
-Route::post('/users', App\Http\Controllers\Users\Register::class)->name('users.register');
+Route::middleware('auth:api')->get('/users', App\Http\Controllers\Users\Index::class)->name('users.index');
 
-Route::post('login', function (Request $request) {
-
-    if (!$request->email) {
-        abort(403);
-    }
-
-    if (!User::whereEmail($request->email)->exists()) {
-        abort(403);
-    }
-    
-    return "abcd1234";
-});
+Route::post('/register', App\Http\Controllers\Users\Register::class)->name('users.register');
+Route::post('/login', App\Http\Controllers\Users\LoginController::class)->name('users.login');
